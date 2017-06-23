@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/SwipeButDemo.iml" filepath="$PROJECT_DIR$/SwipeButDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeButton/SwipeButton.iml" filepath="$PROJECT_DIR$/SwipeButton/SwipeButton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>
