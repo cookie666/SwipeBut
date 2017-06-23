@@ -1,4 +1,4 @@
-package com.cookie.swipebutdemo;
+package com.cookie.swipebut;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

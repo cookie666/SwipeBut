@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cookie.swipebutdemo.MainActivity">
+    tools:context="com.cookie.swipebut.MainActivity">
 
     <com.cookie.swipebutton.SwipeBut
         android:id="@+id/swipeBut"

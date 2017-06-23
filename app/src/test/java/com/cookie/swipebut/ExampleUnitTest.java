@@ -1,4 +1,4 @@
-package com.cookie.swipebutdemo;
+package com.cookie.swipebut;
 
 import org.junit.Test;
 

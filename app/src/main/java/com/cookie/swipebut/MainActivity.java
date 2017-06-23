@@ -1,4 +1,4 @@
-package com.cookie.swipebutdemo;
+package com.cookie.swipebut;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
