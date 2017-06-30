@@ -28,7 +28,5 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     //compile project(':SwipeButton')
-
-        compile 'com.github.cookie666:SwipeButDemo:v1.0.0'
-
+    compile project(':SwipeButtonMaster')
 }

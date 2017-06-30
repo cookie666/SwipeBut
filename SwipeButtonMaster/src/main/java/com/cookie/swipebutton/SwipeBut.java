@@ -32,7 +32,8 @@ public class SwipeBut extends FrameLayout {
     private static final int SUCCESS_NUM = 50;
     private static final int TOTAL_PROGRESS = 100;
     private static final int START_PROGRESS = 0;
-    private static final int ANIMATION_DURATION = 1000;
+    private static final int ANIMATION_DURATION = 500;
+    private static final int ALLOW_START_SWIPE_NUM = 10;
 
     private int currentNum;
 
@@ -95,10 +96,31 @@ public class SwipeBut extends FrameLayout {
         mSeekBar.setThumb(getResources().getDrawable(R.mipmap.right));
         mSeekBar.setProgressDrawable(null);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            private boolean index = true;
+            private boolean first = true;
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if(fromUser){
+                    if(first){
+                        first = false;
+                        if(progress>ALLOW_START_SWIPE_NUM){
+                            index = false;
+                            seekBar.setProgress(0);
+                            return;
+                        }else{
+                            index = true;
+                        }
+                    }
+                    if(!index){
+                        seekBar.setProgress(0);
+                        return;
+                    }
+                }
+
                 currentNum = progress;
+
+                Log.d("progress:",progress+"");
                 if(fromUser){
                     if (progress >= CONTENT_HIDE_NUM) {
                         int newProgress = progress - CONTENT_HIDE_NUM;
@@ -129,6 +151,8 @@ public class SwipeBut extends FrameLayout {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                first = true;
+                index = true;
             }
 
             @Override
@@ -164,14 +188,13 @@ public class SwipeBut extends FrameLayout {
                     frameConent.setAlpha(progressF);
                     frameConent.setScaleX(progressF);
                     frameConent.setScaleY(progressF);
-                    mSeekBar.setProgress(currentNum-1);
-                    mSeekBar.setAlpha( 1 - ((float) (progress - CONTENT_HIDE_NUM) / (float) (TOTAL_PROGRESS - CONTENT_HIDE_NUM)));
                 }else{
                     frameConent.setAlpha(1);
                     frameConent.setScaleX(1);
                     frameConent.setScaleY(1);
-                    mSeekBar.setProgress(currentNum-1);
                 }
+                mSeekBar.setProgress(progress);
+                mSeekBar.setAlpha( 1 - ((float) (progress - CONTENT_HIDE_NUM) / (float) (TOTAL_PROGRESS - CONTENT_HIDE_NUM)));
             }
         });
         backUpAnimator.start();
@@ -186,14 +209,17 @@ public class SwipeBut extends FrameLayout {
         forwardAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
+
                 int  progress = (int) animation.getAnimatedValue();
+
                 int newProgress = progress - CONTENT_HIDE_NUM;
                 float progressF = 1 - (float) newProgress / (float) (TOTAL_PROGRESS - CONTENT_HIDE_NUM);
                 frameConent.setAlpha(progressF);
                 frameConent.setScaleX(progressF);
                 frameConent.setScaleY(progressF);
 
-                mSeekBar.setProgress(currentNum+1);
+                mSeekBar.setProgress(progress);
+
                 if (progress >= SEEK_BAR_HIDE_NUM) {
                     mSeekBar.setAlpha( 1 - ((float) (progress - SEEK_BAR_HIDE_NUM) / (float) (TOTAL_PROGRESS - SEEK_BAR_HIDE_NUM)));
                 }
@@ -220,6 +246,15 @@ public class SwipeBut extends FrameLayout {
     public void setThumb(Drawable drawable){
         if(mSeekBar!=null){
             mSeekBar.setThumb(drawable);
+        }
+    }
+
+    //设置滑动按钮到初始位置
+    public void setStart(){
+        if(mSeekBar!=null){
+            mSeekBar.setProgress(0);
+            currentNum = 0;
+            setAutoProgress();
         }
     }
 
